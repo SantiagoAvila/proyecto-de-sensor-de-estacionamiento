@@ -18,7 +18,7 @@ Consideraciones:
         3)El cliente recibira una pantalla que le indicara por lugar el estatus de cada estacionamiento de
         bateria dentro del local como ( texto libre+ mas color verde) o (texto ocupado + color rojo)
 """
-import RPi.GPIO as gpio
+import RPi.GPIO as GPIO
 import time 
 ### para cada sensor tendremos que usar dos conexiones una de entrada y otra de salida
 #para el sensor numero 1 definimos los pines en las rapberry
@@ -34,29 +34,37 @@ GPIO.setup(disparador2,GPIO.OUT)		#
 GPIO.setup(receptor2,GPIO.IN)			#
 #### Definimos una funcion para la lectura del espacio de estacionamiento
 def det_espacio():
-    while True:
-        GPIO.output(disparador,True)
-        GPIO.output(disparador2,True)
-        time.sleep(0.00001)
-        GPIO.output(disparador,False)
-        GPIO.output(disparador2,False)
-        while 0==GPIO.input(receptor):          #realizando los calculos de timepo para ambos sensores 
-            empieza1=time.time()
-        while 1==GPIO.input(receptor):
-           terminar1=time.time()
-        while 0==GPIO.input(receptor2):
-            empieza2=time.time()
+    GPIO.output(disparador,False)
+    GPIO.output(disparador2,False)
+    time.sleep(2*10**-6)
+    GPIO.output(disparador,True)
+    GPIO.output(disparador2,True)
+    time.sleep(10*10**-6)
+    GPIO.output(disparador,False)
+    GPIO.output(disparador2,False)
+    while 0==GPIO.input(receptor):          #realizando los calculos de timepo para ambos sensores 
+        empieza1=time.time()
+    while 1==GPIO.input(receptor):
+        terminar1=time.time()
+    while 0==GPIO.input(receptor2):
+        empieza2=time.time()
         while 1==GPIO.input(receptor2):
-            termina2=time.time()
-        tiempo1=terminar1-empieza1
-        tiempo2=termina2-empieza2
-        distancia1=(tiempo1*34300)/2            #calculando la distancia en el lugar1
-        distancia2=(tiempo2*34300)/2            #calculando la distancia en el lugar2
-        if distancia1==195:                     ##para lugar1
-            return "Libre espacio 1"            ##
-        elif distancia1!=195:                    ##
-            return "Ocupado espacio 2"          ##
-        if distancia2==195:                     ##para lugar 2
-            return "Libre espacio 2"
-        elif distancia2!=195:
+        termina2=time.time()
+    tiempo1=terminar1-empieza1
+    tiempo2=termina2-empieza2
+    distancia1=(tiempo1*10**6)/58            #calculando la distancia en el lugar1
+    distancia2=(tiempo2*10**6)/58           #calculando la distancia en el lugar2
+    if distancia1==195:                     ##para lugar1
+        return "Libre espacio 1"            ##
+    elif distancia1!=195:                    ##
+        return "Ocupado espacio 2"          ##
+    if distancia2==195:                     ##para lugar 2
+        return "Libre espacio 2"
+    elif distancia2!=195:
             return "Ocupado espacio 2"
+    ## en el bucle principal 
+    while True:
+        det_espacio()
+        time.sleep(0.5)
+    except KeyboardInterrupt:
+        break
