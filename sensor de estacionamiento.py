@@ -42,7 +42,7 @@ def det_espacio():
         time.sleep(0.00001)
         GPIO.output(disparador,False)
         GPIO.output(disparador2,False)
-        while 0==GPIO.input(receptor):
+        while 0==GPIO.input(receptor):          #realizando los calculos de timepo para ambos sensores 
             empieza1=time.time()
         while 1==GPIO.input(receptor):
            terminar1=time.time()
@@ -52,18 +52,13 @@ def det_espacio():
             termina2=time.time()
         tiempo1=terminar1-empieza1
         tiempo2=termina2-empieza2
-        distancia1=(tiempo1*34300)/2
-        distancia2=(tiempo2*34300)/2
+        distancia1=(tiempo1*34300)/2            #calculando la distancia en el lugar1
+        distancia2=(tiempo2*34300)/2            #calculando la distancia en el lugar2
         if distancia1==195:                     ##para lugar1
             return "Libre espacio 1"            ##
-        elif distancia!=195:                    ##
-            return "Ocupado espacio 2"            ##
-        if distancia2==195:
+        elif distancia1!=195:                    ##
+            return "Ocupado espacio 2"          ##
+        if distancia2==195:                     ##para lugar 2
             return "Libre espacio 2"
-        elif distancia!=195:
+        elif distancia2!=195:
             return "Ocupado espacio 2"
-
-
-
-	
-
