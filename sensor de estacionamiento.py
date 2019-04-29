@@ -54,6 +54,16 @@ def det_espacio():
         tiempo2=termina2-empieza2
         distancia1=(tiempo1*34300)/2
         distancia2=(tiempo2*34300)/2
-        
+        if distancia1==195:                     ##para lugar1
+            return "Libre espacio 1"            ##
+        elif distancia!=195:                    ##
+            return "Ocupado espacio 2"            ##
+        elif distancia2==195:
+            return "Libre espacio 2"
+        elif distancia!=195:
+            return "Ocupado espacio 2"
+
+
+
 	
 
