@@ -50,6 +50,10 @@ def det_espacio():
             empieza2=time.time()
         while 1==GPIO.input(receptor2):
             termina2=time.time()
-                
+        tiempo1=terminar1-empieza1
+        tiempo2=termina2-empieza2
+        distancia1=(tiempo1*34300)/2
+        distancia2=(tiempo2*34300)/2
+        
 	
 
