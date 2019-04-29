@@ -58,7 +58,7 @@ def det_espacio():
             return "Libre espacio 1"            ##
         elif distancia!=195:                    ##
             return "Ocupado espacio 2"            ##
-        elif distancia2==195:
+        if distancia2==195:
             return "Libre espacio 2"
         elif distancia!=195:
             return "Ocupado espacio 2"
