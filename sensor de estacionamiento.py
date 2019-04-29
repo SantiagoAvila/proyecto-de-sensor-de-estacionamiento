@@ -33,8 +33,6 @@ GPIO.setup(receptor,GPIO.IN)			#
 GPIO.setup(disparador2,GPIO.OUT)		#
 GPIO.setup(receptor2,GPIO.IN)			#
 #### Definimos una funcion para la lectura del espacio de estacionamiento
-GPIO.input(receptor)=lugar1
-GPIO.input(receptor2)=lugar2
 def det_espacio():
     while True:
         GPIO.output(disparador,True)
