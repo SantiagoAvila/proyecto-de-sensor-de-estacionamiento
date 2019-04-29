@@ -43,5 +43,5 @@ def det_espacio():
     GPIO.output(disparador2,True)
     time.sleep(10*10**-6)
     if lugar1==1:
-        
+        print ("")
         
