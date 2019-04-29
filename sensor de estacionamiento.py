@@ -36,20 +36,20 @@ GPIO.setup(receptor2,GPIO.IN)			#
 GPIO.input(receptor)=lugar1
 GPIO.input(receptor2)=lugar2
 def det_espacio():
-        while True:
-                GPIO.output(disparador,True)
-                GPIO.output(disparador2,True)
-                time.sleep(0.00001)
-                GPIO.output(disparador,False)
-                GPIO.output(disparador2,False)
-                while 0==GPIO.input(receptor):
-                        empieza1=time.time()
-                while 1==GPIO.input(receptor):
-                        terminar1=time.time()
-                while 0==GPIO.input(receptor2):
-                        empieza2=time.time()
-                while 1==GPIO.input(receptor2):
-                        termina2=time.time()
+    while True:
+        GPIO.output(disparador,True)
+        GPIO.output(disparador2,True)
+        time.sleep(0.00001)
+        GPIO.output(disparador,False)
+        GPIO.output(disparador2,False)
+        while 0==GPIO.input(receptor):
+            empieza1=time.time()
+        while 1==GPIO.input(receptor):
+           terminar1=time.time()
+        while 0==GPIO.input(receptor2):
+            empieza2=time.time()
+        while 1==GPIO.input(receptor2):
+            termina2=time.time()
                 
 	
 
