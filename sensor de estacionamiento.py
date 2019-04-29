@@ -36,12 +36,15 @@ GPIO.setup(receptor2,GPIO.IN)
 GPIO.input(receptor)=lugar1
 GPIO.input(receptor2)=lugar2
 def det_espacio():
-    GPIO.output(disparador,False)
-    GPIO.output(disparador2,False)
+    GPIO.output(disparador,False)       ##configuramos los tiempos que trabajaran los respectivos emisores
+    GPIO.output(disparador2,False)      ##arrancando en estado apagado
     time.sleep(2*10**-6)
     GPIO.output(disparador,True)
     GPIO.output(disparador2,True)
     time.sleep(10*10**-6)
-    if lugar1==1:
-        print ("")
-        
+    while GPIO.input(receptor)==0:
+        empieza1=time.time()
+    while GPIO.ipunt(receptor)==1:
+        termina1=time.time()
+	duracion1= termina1-empieza1
+	
