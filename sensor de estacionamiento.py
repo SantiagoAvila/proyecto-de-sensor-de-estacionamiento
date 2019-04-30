@@ -2,7 +2,7 @@
 """
 ESTO DEBE CORRER EN LA RASPBERRY PARA QUE FUNCIONE
 
-Tutores Claves: Willi Bobadilla @WilliBobadilla y Lore 
+Tutores Claves: Willi Bobadilla @WilliBobadilla y @Lorelulen
 Objetivo:
         en el presente archivo se intentara realizar una pagina web para el monitoreo de vacancias 
         de estacionamientos funcional en un local determinado utilizando raspberry, que responda en
