@@ -23,10 +23,10 @@ import time #se necesita para usar las funciones de tiempo
 import RPi.GPIO as GPIO
  
 GPIO.setmode(GPIO.BOARD) #definimos la configuracion de la raspberry para utilizar la numeracion de los pines
-disparador1 = 11
-Eco1 = 13
-disparador2 = 3
-Eco2 = 5
+disparador1 = 3
+Eco1 = 5
+disparador2 = 38
+Eco2 = 40
  
 #Hay que configurar ambos pines del HC-SR04 para ambos sensores
 GPIO.setup(disparador1, GPIO.OUT)
@@ -90,11 +90,11 @@ while True:
    try:
       d1=detectar_lugar1()              #ahora guardamos los valores retornados al llamar las funciones
       d2=detectar_lugar2()              # para luego con los if relacionar para definir si esta o no libre 
-      if d1>=15:                        #para esta maqueta se hara en miniatura por lo cual los valores son
+      if d1>=14.5:                        #para esta maqueta se hara en miniatura por lo cual los valores son
          print("libre espacio 1")       #realmente muy pequeños pero si es para un estacionamiento estandar
       else:                             #se deben usar los valores de la descripcion 
          print("ocupado espacio 1")
-      if 15<=d2:
+      if 14.5<=d2:
          print("libre espacio 2")
       else:
          print("ocupado espacio 2")
