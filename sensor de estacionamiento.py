@@ -52,7 +52,8 @@ def det_espacio():
 #        termina2=time.time()
     tiempo1=terminar1-empieza1
 #    tiempo2=termina2-empieza2
-    distancia1=(tiempo1*10**6)/58            #calculando la distancia en el lugar1
+    timepo1=tiempo1*10**6
+    distancia1=tiempo1/58           #calculando la distancia en el lugar1
 #    distancia2=(tiempo2*10**6)/58           #calculando la distancia en el lugar2
 #    if distancia1==195:                     ##para lugar1
      #   return "Libre espacio 1"            ##
@@ -65,7 +66,8 @@ def det_espacio():
     ## en el bucle principal 
     print "2%f" %distancia1
     while True:
-        det_espacio()
-        time.sleep(0.5)
-    except KeyboardInterrupt:
-        break
+        try:
+            det_espacio()
+            time.sleep(0.5)
+        except KeyboardInterrupt:
+            break
