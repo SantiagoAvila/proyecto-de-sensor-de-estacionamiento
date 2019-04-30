@@ -33,41 +33,35 @@ GPIO.setup(receptor,GPIO.IN)			#
 #GPIO.setup(disparador2,GPIO.OUT)		#
 #GPIO.setup(receptor2,GPIO.IN)			#
 #### Definimos una funcion para la lectura del espacio de estacionamiento
-def det_espacio():
-    GPIO.output(disparador,False)
- #   GPIO.output(disparador2,False)
-    time.sleep(2*10**-6)
-    GPIO.output(disparador,True)
-  #  GPIO.output(disparador2,True)
-    time.sleep(10*10**-6)
-    GPIO.output(disparador,False)
-   # GPIO.output(disparador2,False)
-    while GPIO.input(receptor)==0:          #realizando los calculos de timepo para ambos sensores 
-        empieza1=time.time()
-    while GPIO.input(receptor)==1:
-        terminar1=time.time()
-   # while GPIO.input(receptor2)==0:
-    #    empieza2=time.time()
- #       while GPIO.input(receptor2)==1:
-#        termina2=time.time()
-    tiempo1=terminar1-empieza1
-#    tiempo2=termina2-empieza2
-    timepo1=tiempo1*10**6
-    distancia1=tiempo1/58           #calculando la distancia en el lugar1
-#    distancia2=(tiempo2*10**6)/58           #calculando la distancia en el lugar2
-#    if distancia1==195:                     ##para lugar1
-     #   return "Libre espacio 1"            ##
-    #elif distancia1!=195:                    ##
-     #   return "Ocupado espacio 2"          ##
-    #if distancia2==195:                     ##para lugar 2
-     #   return "Libre espacio 2"
-    #elif distancia2!=195:
-     #       return "Ocupado espacio 2"
+def detec_espacio():
+ 
+   GPIO.output(disparador, False) #apagamos el pin Trig
+   time.sleep(2*10**-6) #esperamos dos microsegundos
+   GPIO.output(disparador, True) #encendemos el pin Trig
+   time.sleep(10*10**-6) #esperamos diez microsegundos
+   GPIO.output(disparador, False) #y lo volvemos a apagar
+ 
+  #empezaremos a contar el tiempo cuando el pin Echo se encienda
+   while GPIO.input(receptor) == 0:
+      comienzo = time.time()
+ 
+   while GPIO.input(receptor) == 1:
+      final = time.time()
+ 
+   #La duracion del pulso del pin Echo sera la diferencia entre
+   #el tiempo de inicio y el final
+   duracion = final-comienzo
+ 
+   #como la duracion del tiempo esta en mili segundos 
+   #debemosa pasar a segundos
+   duracion = duracion*10**6
+   distancia = duracion/58 #hay que dividir por la constante que pone en la documentacion, nos dara la distancia en cm
+ 
+   print "%.1f" %distancia #por ultimo
     ## en el bucle principal 
-    print "2%f" %distancia1
-    while True:
-        try:
-            det_espacio()
-            time.sleep(0.5)
-        except KeyboardInterrupt:
-            break
+while True:
+	try:
+		detec_espacio()
+		time.sleep(0.5)
+	except KeyboardInterrupt:
+		break
