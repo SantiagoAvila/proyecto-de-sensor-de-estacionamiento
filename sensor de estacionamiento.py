@@ -90,14 +90,14 @@ while True:
    try:
       d1=detectar_lugar1()              #ahora guardamos los valores retornados al llamar las funciones
       d2=detectar_lugar2()              # para luego con los if relacionar para definir si esta o no libre 
-      if d1>=70:                        #para esta maqueta se hara en miniatura por lo cual los valores son
+      if d1>=15:                        #para esta maqueta se hara en miniatura por lo cual los valores son
          print("libre espacio 1")       #realmente muy pequeños pero si es para un estacionamiento estandar
       else:                             #se deben usar los valores de la descripcion 
          print("ocupado espacio 1")
-      if 70<=d2:
+      if 15<=d2:
          print("libre espacio 2")
       else:
          print("ocupado espacio 2")
-      time.sleep(2.0)                   #por ultimo le damos un sleep para reinicir la funcion 
+      time.sleep(0.7)                   #por ultimo le damos un sleep para reiniciar la funcion 
    except KeyboardInterrupt:
       break                             #ponemos un break para detener el programa
