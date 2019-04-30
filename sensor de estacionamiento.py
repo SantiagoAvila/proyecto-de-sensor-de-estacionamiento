@@ -19,49 +19,49 @@ Consideraciones:
         bateria dentro del local como ( texto libre+ mas color verde) o (texto ocupado + color rojo)
 """
 import RPi.GPIO as GPIO
-import time 
-### para cada sensor tendremos que usar dos conexiones una de entrada y otra de salida
-#para el sensor numero 1 definimos los pines en las rapberry
-disparador= 11
-receptor=13
-##para el sensor numero 2 definimos los pines en la raspberry
-#disparador2=16
-#receptor2=18
-GPIO.setmode(GPIO.BOARD)                #configuramos los pines del sensor en la raspebrry para  
-GPIO.setup(disparador, GPIO.OUT)        # para ambos sensores
-GPIO.setup(receptor,GPIO.IN)			#
-#GPIO.setup(disparador2,GPIO.OUT)		#
-#GPIO.setup(receptor2,GPIO.IN)			#
-#### Definimos una funcion para la lectura del espacio de estacionamiento
-def detec_espacio():
+import time #se necesita para usar las funciones de tiempo
+
+GPIO.setmode(GPIO.BOARD) #Queremos usar la numeracion de la placa raspberry
+#Definimos los dos pines del sensor que hemos conectado: disparador y Eco
+disparador = 11
+Eco = 13
+#Hay que configurar ambos pines del HC-SR04
+GPIO.setup(disparador, GPIO.OUT)
+GPIO.setup(Eco, GPIO.IN)
+#Para leer la distancia del sensor al lugar del estacionamiento, creamos una funcion
+def detectar_lugar():
  
-   GPIO.output(disparador, False) #apagamos el pin Trig
+   GPIO.output(disparador, False) #apagamos el pin disparador
    time.sleep(2*10**-6) #esperamos dos microsegundos
-   GPIO.output(disparador, True) #encendemos el pin Trig
+   GPIO.output(disparador, True) #encendemos el pin disparador
    time.sleep(10*10**-6) #esperamos diez microsegundos
    GPIO.output(disparador, False) #y lo volvemos a apagar
+  #empezaremos a contar el tiempo cuando el pin Eco se encienda
+   while GPIO.input(Eco) == 0:
+      start = time.time()
+
+   while GPIO.input(Eco) == 1:
+      end = time.time()
  
-  #empezaremos a contar el tiempo cuando el pin Echo se encienda
-   while GPIO.input(receptor) == 0:
-      comienzo = time.time()
- 
-   while GPIO.input(receptor) == 1:
-      final = time.time()
- 
-   #La duracion del pulso del pin Echo sera la diferencia entre
+   #La duracion del pulso del pin Eco sera la diferencia entre
    #el tiempo de inicio y el final
-   duracion = final-comienzo
+   duracion = end-start
  
-   #como la duracion del tiempo esta en mili segundos 
-   #debemosa pasar a segundos
+   #Este tiempo viene dado en segundos. Si lo pasamos
+   #a microsegundos, podemos aplicar directamente las formulas
    duracion = duracion*10**6
-   distancia = duracion/58 #hay que dividir por la constante que pone en la documentacion, nos dara la distancia en cm
+   medida = duracion/58 #hay que dividir por la constante que pone en la documentacion, nos dara la distancia en cm
+   return medida
+    #por ultimo, vamos a mostrar el resultado por pantalla
  
-   print "%.1f" %distancia #por ultimo
-    ## en el bucle principal 
+#Bucle principal del programa, lee el sensor. Se sale con CTRL+C
 while True:
-	try:
-		detec_espacio()
-		time.sleep(0.5)
-	except KeyboardInterrupt:
-		break
+   try:
+      d=detectar_lugar()
+      if 73<=d<=75:
+         print("libre")
+      else:
+         print("ocupado")
+      time.sleep(0.7)
+   except KeyboardInterrupt:
+      break
